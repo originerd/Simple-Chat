@@ -1,0 +1,11 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "A server for chatting",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Jitae Kim",
+  "license": "ISC"
+}
