@@ -18,4 +18,20 @@ describe('POST /sessions', () => {
       return result.expect(201);
     });
   });
+
+  describe('when username is already taken', () => {
+    it('responds with 409 and a message', () => {
+      // Given
+      const username = 'Jitae Kim';
+      const app = init({ usernames: [username] });
+
+      // When
+      const result = request(app)
+        .post('/sessions')
+        .send({ username });
+
+      // Then
+      return result.expect(409);
+    });
+  });
 });

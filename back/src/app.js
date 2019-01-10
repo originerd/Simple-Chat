@@ -1,14 +1,20 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 
-const init = () => {
+const init = ({ usernames = [] } = {}) => {
   const app = express();
-  const usernames = new Set();
+  const users = new Set(usernames);
 
   app.use(bodyParser.json());
 
   app.post('/sessions', (req, res) => {
-    usernames.add(req.body.usernames);
+    const { username } = req.body;
+
+    if (users.has(username)) {
+      return res.status(409).send('The username is already taken.');
+    }
+
+    users.add(req.body.usernames);
 
     res.sendStatus(201);
   });
