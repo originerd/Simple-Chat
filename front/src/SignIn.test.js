@@ -19,4 +19,16 @@ describe('SignIn', () => {
     // Then
     expect(wrapper.find('button').text()).toBe('Connect');
   });
+
+  it('sets state when input is changed', () => {
+    // Given
+    const wrapper = shallow(<SignIn />);
+    const username = 'Jitae Kim';
+
+    // When
+    wrapper.find('input').simulate('change', { target: { value: username } });
+
+    // Then
+    expect(wrapper.state('username')).toBe(username);
+  });
 });
