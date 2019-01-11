@@ -2,7 +2,12 @@ import React from 'react';
 
 class SignIn extends React.Component {
   render() {
-    return <input />;
+    return (
+      <div>
+        <input />
+        <button>Connect</button>
+      </div>
+    );
   }
 }
 

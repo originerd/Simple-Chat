@@ -11,4 +11,12 @@ describe('SignIn', () => {
     // Then
     expect(wrapper.find('input').length).toBe(1);
   });
+
+  it('renders a button', () => {
+    // When
+    const wrapper = shallow(<SignIn />);
+
+    // Then
+    expect(wrapper.find('button').text()).toBe('Connect');
+  });
 });
