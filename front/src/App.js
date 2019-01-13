@@ -17,11 +17,13 @@ class App extends React.Component {
   }
 
   render() {
-    if (!this.state.username) {
+    const { username } = this.state;
+
+    if (!username) {
       return <SignIn signIn={this.signIn} />;
     }
 
-    return <UserList />;
+    return <UserList username={username} />;
   }
 }
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class UserList extends React.Component {
@@ -19,5 +20,9 @@ class UserList extends React.Component {
     );
   }
 }
+
+UserList.propTypes = {
+  username: PropTypes.string.isRequired,
+};
 
 export default UserList;
