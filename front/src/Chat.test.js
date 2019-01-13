@@ -1,23 +1,23 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import UserList from './UserList';
+import Chat from './Chat';
 
-describe('UserList', () => {
-  describe('when there is no users to chat', () => {
+describe('Chat', () => {
+  describe('when there are no usernames to chat', () => {
     it('renders empty message', () => {
       // When
-      const wrapper = shallow(<UserList username="Jitae Kim" />);
+      const wrapper = shallow(<Chat username="Jitae Kim" />);
 
       // Then
       expect(wrapper.text()).toContain('no users');
     });
   });
 
-  describe('when there are users to chat', () => {
-    it('renders users', () => {
+  describe('when there are usernames to chat', () => {
+    it('renders buttons', () => {
       // Given
-      const wrapper = shallow(<UserList username="Jitae Kim" />);
+      const wrapper = shallow(<Chat username="Jitae Kim" />);
       const usernames = ['Alan', 'Kevin', 'Jay'];
 
       // When

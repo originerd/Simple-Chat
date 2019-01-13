@@ -1,7 +1,7 @@
 import React from 'react';
 
+import Chat from './Chat';
 import SignIn from './SignIn';
-import UserList from './UserList';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class App extends React.Component {
       return <SignIn signIn={this.signIn} />;
     }
 
-    return <UserList username={username} />;
+    return <Chat username={username} />;
   }
 }
 

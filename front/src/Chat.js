@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import io from 'socket.io-client';
 
-class UserList extends React.Component {
+class Chat extends React.Component {
   constructor(props) {
     super(props);
 
@@ -35,8 +35,8 @@ class UserList extends React.Component {
   }
 }
 
-UserList.propTypes = {
+Chat.propTypes = {
   username: PropTypes.string.isRequired,
 };
 
-export default UserList;
+export default Chat;
