@@ -2,9 +2,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 
-const init = ({ usernames = [] } = {}) => {
+const init = (options = { usernames: [] }) => {
   const app = express();
-  const users = new Set(usernames);
+  const usernames = new Set(options.usernames);
 
   app.use(cors({
     origin: 'http://localhost:3000',
@@ -15,16 +15,16 @@ const init = ({ usernames = [] } = {}) => {
   app.post('/sessions', (req, res) => {
     const { username } = req.body;
 
-    if (users.has(username)) {
+    if (usernames.has(username)) {
       return res.status(409).send('The username is already taken.');
     }
 
-    users.add(username);
+    usernames.add(username);
 
     res.sendStatus(201);
   });
 
-  return app;
+  return { app, usernames };
 };
 
 module.exports = { init };
