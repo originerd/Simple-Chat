@@ -1,9 +1,14 @@
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const express = require('express');
 
 const init = ({ usernames = [] } = {}) => {
   const app = express();
   const users = new Set(usernames);
+
+  app.use(cors({
+    origin: 'http://localhost:3000',
+  }));
 
   app.use(bodyParser.json());
 
@@ -14,7 +19,7 @@ const init = ({ usernames = [] } = {}) => {
       return res.status(409).send('The username is already taken.');
     }
 
-    users.add(req.body.usernames);
+    users.add(username);
 
     res.sendStatus(201);
   });
