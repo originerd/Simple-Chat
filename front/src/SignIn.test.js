@@ -32,6 +32,17 @@ describe('SignIn', () => {
     expect(wrapper.state('username')).toBe(username);
   });
 
+  it('resets error when input is changed', () => {
+    const wrapper = shallow(<SignIn signIn={() => undefined} />);
+    wrapper.setState({ error: 'TestError' });
+
+    // When
+    wrapper.find('input').simulate('change', { target: { value: 'TestUsername' } });
+
+    // Then
+    expect(wrapper.state('error')).toBeUndefined();
+  });
+
   describe('clicking the connect button', () => {
     let fetchSpy;
 

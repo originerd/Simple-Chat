@@ -24,7 +24,11 @@ class SignIn extends React.Component {
   }
 
   setUsername(event) {
-    this.setState({ username: event.target.value });
+    this.setState({
+      error: undefined,
+      username: event.target.value,
+    });
+  }
 
   signIn() {
     if (this.isUsernameEmpty) {
