@@ -8,11 +8,17 @@ class App extends React.Component {
     super(props);
 
     this.state = { username: undefined };
+
+    this.signIn = this.signIn.bind(this);
+  }
+
+  signIn(username) {
+    this.setState({ username });
   }
 
   render() {
     if (!this.state.username) {
-      return <SignIn />;
+      return <SignIn signIn={this.signIn} />;
     }
 
     return <UserList />;
