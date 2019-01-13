@@ -38,9 +38,18 @@ class SignIn extends React.Component {
 
     fetch('http://localhost:8000/sessions', {
       method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
       body: JSON.stringify({ username: this.state.username }),
-    }).then(() => {
-      this.props.signIn(this.state.username);
+    }).then((res) => {
+      if (res.status === 201) {
+        this.props.signIn(this.state.username);
+      } else {
+        res.text().then((error) => {
+          this.setError(error);
+        });
+      }
     }).catch((error) => {
       this.setError(error.message);
     });

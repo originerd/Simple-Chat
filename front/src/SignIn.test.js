@@ -73,7 +73,9 @@ describe('SignIn', () => {
 
     describe('when username is valid', () => {
       beforeAll(() => {
-        fetchSpy.mockImplementation(() => Promise.resolve());
+        fetchSpy.mockImplementation(() => Promise.resolve({
+          status: 201,
+        }));
       });
 
       it('calls signIn function of props', async () => {
@@ -96,7 +98,10 @@ describe('SignIn', () => {
       const errorMessage = 'TestError';
 
       beforeAll(() => {
-        fetchSpy.mockImplementation(() => Promise.reject(new Error(errorMessage)));
+        fetchSpy.mockImplementation(() => Promise.resolve({
+          status: 409,
+          text: () => Promise.resolve(errorMessage),
+        }));
       });
 
       it('calls signIn function of props', async () => {
