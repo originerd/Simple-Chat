@@ -4,6 +4,7 @@
   "description": "A server for chatting",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "jest"
   },
   "author": "Jitae Kim",
