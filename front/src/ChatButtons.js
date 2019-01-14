@@ -18,8 +18,31 @@ class ChatButtons extends React.Component {
     };
   }
 
-  render() {
+  renderButtons() {
     const { chatRoomToUnreadMessageCount, selectedChatRoom, usernames } = this.props;
+
+    return usernames.map((username) => {
+      const classNames = ['chat-buttons__button'];
+
+      if (username === selectedChatRoom) {
+        classNames.push('active');
+      }
+
+      return (
+        <button
+          className={classNames.join(' ')}
+          key={username}
+          onClick={this.selectChatRoom(username)}
+        >
+          {username}
+          {chatRoomToUnreadMessageCount[username] && <span className="badge">{chatRoomToUnreadMessageCount[username]}</span> || null}
+        </button>
+      );
+    });
+  }
+
+  render() {
+    const { usernames } = this.props;
 
     if (usernames.length === 0) {
       return (
@@ -31,18 +54,7 @@ class ChatButtons extends React.Component {
 
     return (
       <div className="chat-buttons">
-        {
-          usernames.map((username) => (
-            <button
-              className={`chat-buttons__button${username === selectedChatRoom ? ' active' : ''}`}
-              key={username}
-              onClick={this.selectChatRoom(username)}
-            >
-              {username}
-              {chatRoomToUnreadMessageCount[username] && <span className="badge">{chatRoomToUnreadMessageCount[username]}</span> || null}
-            </button>)
-          )
-        }
+        {this.renderButtons()}
       </div>
     );
   }
