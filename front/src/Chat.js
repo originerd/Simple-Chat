@@ -12,11 +12,13 @@ class Chat extends React.Component {
 
     this.state = {
       chatRoomToMessages: {},
+      chatRoomToUnreadMessageCount: {},
       selectedChatRoom: undefined,
       usernames: [],
     };
 
     this.appendMessage = this.appendMessage.bind(this);
+    this.resetUnreadMessageCount = this.resetUnreadMessageCount.bind(this);
     this.selectChatRoom = this.selectChatRoom.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.setUsernames = this.setUsernames.bind(this);
@@ -39,11 +41,31 @@ class Chat extends React.Component {
     const { from } = message;
     const chatRoom = from === username ? selectedChatRoom : from;
 
+    if (chatRoom !== selectedChatRoom) {
+      this.setState((prevState) => ({
+        ...prevState,
+        chatRoomToUnreadMessageCount: {
+          ...prevState.chatRoomToUnreadMessageCount,
+          [chatRoom]: (prevState.chatRoomToUnreadMessageCount[chatRoom] || 0) + 1,
+        },
+      }));
+    }
+
     this.setState((prevState) => ({
       ...prevState,
       chatRoomToMessages: {
         ...prevState.chatRoomToMessages,
         [chatRoom]: (prevState.chatRoomToMessages[chatRoom] || []).concat(message),
+      },
+    }));
+  }
+
+  resetUnreadMessageCount(username) {
+    this.setState((prevState) => ({
+      ...prevState,
+      chatRoomToUnreadMessageCount: {
+        ...prevState.chatRoomToUnreadMessageCount,
+        [username]: 0,
       },
     }));
   }
@@ -72,11 +94,13 @@ class Chat extends React.Component {
 
   render() {
     const { username } = this.props;
-    const { chatRoomToMessages, selectedChatRoom, usernames } = this.state;
+    const { chatRoomToMessages, chatRoomToUnreadMessageCount, selectedChatRoom, usernames } = this.state;
 
     return (
       <div className="chat">
         <ChatButtons
+          chatRoomToUnreadMessageCount={chatRoomToUnreadMessageCount}
+          resetUnreadMessageCount={this.resetUnreadMessageCount}
           selectChatRoom={this.selectChatRoom}
           selectedChatRoom={selectedChatRoom}
           usernames={usernames.filter((name) => name !== username)}

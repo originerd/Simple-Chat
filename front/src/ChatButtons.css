@@ -18,3 +18,10 @@
 .chat-buttons__button.active {
   background-color: gold;
 }
+
+.badge {
+  background-color: red;
+  border-radius: 50%;
+  margin-left: 4px;
+  padding: 4px 6px;
+}

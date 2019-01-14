@@ -10,11 +10,16 @@ class ChatButtons extends React.Component {
     this.selectChatRoom = this.selectChatRoom.bind(this);
   }
   selectChatRoom(username) {
-    return () => { this.props.selectChatRoom(username) };
+    const { resetUnreadMessageCount, selectChatRoom } = this.props;
+
+    return () => {
+      resetUnreadMessageCount(username);
+      selectChatRoom(username);
+    };
   }
 
   render() {
-    const { selectedChatRoom, usernames } = this.props;
+    const { chatRoomToUnreadMessageCount, selectedChatRoom, usernames } = this.props;
 
     if (usernames.length === 0) {
       return (
@@ -26,13 +31,26 @@ class ChatButtons extends React.Component {
 
     return (
       <div className="chat-buttons">
-        {usernames.map((username) => <button className={`chat-buttons__button${username === selectedChatRoom ? ' active' : ''}`} key={username} onClick={this.selectChatRoom(username)}>{username}</button>)}
+        {
+          usernames.map((username) => (
+            <button
+              className={`chat-buttons__button${username === selectedChatRoom ? ' active' : ''}`}
+              key={username}
+              onClick={this.selectChatRoom(username)}
+            >
+              {username}
+              {chatRoomToUnreadMessageCount[username] && <span className="badge">{chatRoomToUnreadMessageCount[username]}</span>}
+            </button>)
+          )
+        }
       </div>
     );
   }
 }
 
 ChatButtons.propTypes = {
+  chatRoomToUnreadMessageCount: PropTypes.objectOf(PropTypes.number).isRequired,
+  resetUnreadMessageCount: PropTypes.func.isRequired,
   selectChatRoom: PropTypes.func.isRequired,
   selectedChatRoom: PropTypes.string,
 };
