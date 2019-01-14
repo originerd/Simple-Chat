@@ -14,8 +14,6 @@ io.origins('http://localhost:3000');
 
 io.on('connection', (socket) => {
   socket.on('disconnect', () => {
-    console.log(socket.username, 'has left');
-
     if (socket.username) {
       usernames.delete(socket.username);
     }
@@ -24,12 +22,15 @@ io.on('connection', (socket) => {
   });
 
   socket.on('join', (username) => {
-    console.log(username, 'has joined');
     socket.username = username;
 
     usernames.add(username);
 
     io.emit('usernames', Array.from(usernames));
+  });
+
+  socket.on('message', ({ from, message, to }) => {
+    io.emit(to, { from, message });
   });
 });
 

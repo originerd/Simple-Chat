@@ -15,16 +15,36 @@ class Chat extends React.Component {
       usernames: [],
     };
 
+    this.appendMessage = this.appendMessage.bind(this);
     this.selectChatRoom = this.selectChatRoom.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.setUsernames = this.setUsernames.bind(this);
   }
 
   componentDidMount() {
+    const { username } = this.props;
+
     this.socket = io('http://localhost:8000');
 
     this.socket.on('usernames', this.setUsernames);
-    this.socket.emit('join', this.props.username);
+    this.socket.on(username, this.appendMessage);
+    this.socket.emit('join', username);
+  }
+
+  appendMessage(message) {
+    const { username } = this.props;
+    const { selectedChatRoom } = this.state;
+
+    const { from } = message;
+    const chatRoom = from === username ? selectedChatRoom : from;
+
+    this.setState((prevState) => ({
+      ...prevState,
+      chatRoomToMessages: {
+        ...prevState.chatRoomToMessages,
+        [chatRoom]: (prevState.chatRoomToMessages[chatRoom] || []).concat(message),
+      },
+    }));
   }
 
   selectChatRoom(username) {
@@ -39,16 +59,10 @@ class Chat extends React.Component {
       return;
     }
 
-    const newMessage = { from: username, message };
+    const newMessage = { from: username, message, to: selectedChatRoom };
 
-    this.socket.emit(selectedChatRoom, newMessage);
-    this.setState((prevState) => ({
-      ...prevState,
-      chatRoomToMessages: {
-        ...prevState.chatRoomToMessages,
-        [selectedChatRoom]: (prevState.chatRoomToMessages[selectedChatRoom] || []).concat(newMessage),
-      },
-    }));
+    this.socket.send(newMessage);
+    this.appendMessage(newMessage);
   }
 
   setUsernames(usernames) {
