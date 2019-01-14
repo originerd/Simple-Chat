@@ -24,6 +24,8 @@ class ChatRoom extends React.Component {
 
   sendMessage() {
     this.props.sendMessage(this.state.message);
+
+    this.setState({ message: '' });
   }
 
   setMessage(event) {

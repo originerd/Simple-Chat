@@ -101,6 +101,7 @@ describe('ChatRoom', () => {
 
       // Then
       expect(sendMessageMockFn).toBeCalledWith(message);
+      expect(wrapper.state('message')).toBe('');
     });
   });
 
