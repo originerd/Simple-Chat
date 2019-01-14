@@ -59,6 +59,24 @@ describe('ChatRoom', () => {
       expect(chatBubbleContainer.find('ChatBubble').at(1).prop('isMine')).not.toBe(true);
       expect(chatBubbleContainer.find('ChatBubble').at(1).prop('message')).toBe(messages[1].message);
     });
+
+    it('sets message when input is changed', () => {
+      // Given
+      const wrapper = shallow(
+        <ChatRoom
+          messages={[]}
+          to="Originerd"
+          username="Jitae Kim"
+        />,
+      );
+
+      // When
+      const message = 'TestMessage';
+      wrapper.find('input').simulate('change', { target: { value: message } });
+
+      // Then
+      expect(wrapper.state('message')).toBe(message);
+    });
   });
 
   describe('when selected chat room exists', () => {

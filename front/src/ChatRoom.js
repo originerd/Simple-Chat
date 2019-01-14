@@ -4,6 +4,18 @@ import React from 'react';
 import ChatBubble from './ChatBubble';
 
 class ChatRoom extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { message: '' };
+
+    this.setMessage = this.setMessage.bind(this);
+  }
+
+  setMessage(event) {
+    this.setState({ message: event.target.value });
+  }
+
   render() {
     const { messages, to, username } = this.props;
 
@@ -16,7 +28,7 @@ class ChatRoom extends React.Component {
         <div className="chat-bubble-container">
           {messages.map(({ from, message }, index) => <ChatBubble isMine={username === from} key={index} message={message} />)}
         </div>
-        <input />
+        <input onChange={this.setMessage} value={this.state.message} />
       </div>
     );
   }
