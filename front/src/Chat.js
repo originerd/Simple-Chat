@@ -3,6 +3,7 @@ import React from 'react';
 import io from 'socket.io-client';
 
 import ChatButtons from './ChatButtons';
+import ChatRoom from './ChatRoom';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class Chat extends React.Component {
     return (
       <div>
         <ChatButtons usernames={this.state.usernames.filter((username) => username !== this.props.username)} />
+        <ChatRoom />
       </div>
     );
   }
