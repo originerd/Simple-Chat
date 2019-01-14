@@ -17,3 +17,13 @@
 1. Go to `front` directory
 1. `$ npm install`
 1. `$ npm start`
+
+## Screenshots
+
+1. Sign in
+
+![A screenshot of Sign in](./screenshots/sign-in.png)
+
+1. Chat
+
+![A screenshot of Chat](./screenshots/chat.png)
