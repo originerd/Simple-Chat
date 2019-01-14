@@ -4,27 +4,18 @@ import React from 'react';
 import Chat from './Chat';
 
 describe('Chat', () => {
-  describe('when there are no usernames to chat', () => {
-    it('renders empty message', () => {
-      // When
-      const wrapper = shallow(<Chat username="Jitae Kim" />);
-
-      // Then
-      expect(wrapper.text()).toContain('no users');
-    });
-  });
-
-  describe('when there are usernames to chat', () => {
-    it('renders buttons', () => {
+  describe('rendering ChatButtons', () => {
+    it('gives uernames props without current user', () => {
       // Given
-      const wrapper = shallow(<Chat username="Jitae Kim" />);
-      const usernames = ['Alan', 'Kevin', 'Jay'];
+      const username = 'Jitae Kim';
+      const wrapper = shallow(<Chat username={username} />);
 
       // When
-      wrapper.setState({ usernames });
+      const otherUsernames = ['Alan', 'Kevin', 'Jay'];
+      wrapper.setState({ usernames: [username, ...otherUsernames] });
 
       // Then
-      expect(wrapper.find('button').length).toBe(usernames.length);
+      expect(wrapper.find('ChatButtons').prop('usernames')).toEqual(otherUsernames);
     });
   });
 });

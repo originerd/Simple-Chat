@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import io from 'socket.io-client';
 
+import ChatButtons from './ChatButtons';
+
 class Chat extends React.Component {
   constructor(props) {
     super(props);
@@ -23,13 +25,9 @@ class Chat extends React.Component {
   }
 
   render() {
-    if (this.state.usernames.length === 0) {
-      return <p>There are no users to chat.</p>;
-    }
-
     return (
       <div>
-        {this.state.usernames.map((username) => <button key={username}>{username}</button>)}
+        <ChatButtons usernames={this.state.usernames.filter((username) => username !== this.props.username)} />
       </div>
     );
   }
