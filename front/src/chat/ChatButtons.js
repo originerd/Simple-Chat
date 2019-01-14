@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import ChatButtonBadge from './ChatButtonBadge';
 import './ChatButtons.css';
 
 class ChatButtons extends React.Component {
@@ -19,23 +20,11 @@ class ChatButtons extends React.Component {
     };
   }
 
-  renderBadge(username) {
-    const { chatRoomToUnreadMessageCount } = this.props;
+  render() {
+    const { chatRoomToUnreadMessageCount, selectedChatRoom, usernames } = this.props;
 
-    const unreadMessageCount = chatRoomToUnreadMessageCount[username];
-
-    if (!unreadMessageCount) {
-      return null;
-    }
-
-    return <span className="badge">{chatRoomToUnreadMessageCount[username]}</span>;
-  }
-
-  renderButtons() {
-    const { selectedChatRoom, usernames } = this.props;
-
-    return usernames.map((username) => {
-      const classNames = ['chat-buttons__button'];
+    const chatButtons = usernames.map((username) => {
+      const classNames = ['chat-button'];
 
       if (username === selectedChatRoom) {
         classNames.push('active');
@@ -48,28 +37,12 @@ class ChatButtons extends React.Component {
           onClick={this.selectChatRoom(username)}
         >
           {username}
-          {this.renderBadge(username)}
+          <ChatButtonBadge unreadMessageCount={chatRoomToUnreadMessageCount[username]} />
         </button>
       );
     });
-  }
 
-  render() {
-    const { usernames } = this.props;
-
-    if (usernames.length === 0) {
-      return (
-        <div className="chat-buttons">
-          <p>There are no users to chat.</p>
-        </div>
-      );
-    }
-
-    return (
-      <div className="chat-buttons">
-        {this.renderButtons()}
-      </div>
-    );
+    return <>{chatButtons}</>;
   }
 }
 
@@ -78,6 +51,7 @@ ChatButtons.propTypes = {
   resetUnreadMessageCount: PropTypes.func.isRequired,
   selectChatRoom: PropTypes.func.isRequired,
   selectedChatRoom: PropTypes.string,
+  usernames: PropTypes.array.isRequired,
 };
 
 export default ChatButtons;

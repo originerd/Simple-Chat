@@ -35,22 +35,7 @@ describe('ChatRoom', () => {
       expect(wrapper.find('.chat-room__text-input').length).toBe(1);
     });
 
-    it('renders a chat bubble container', () => {
-      // When
-      const wrapper = shallow(
-        <ChatRoom
-          messages={[]}
-          sendMessage={() => undefined}
-          to="Originerd"
-          username="Jitae Kim"
-        />,
-      );
-
-      // Then
-      expect(wrapper.find('.chat-room__bubbles').length).toBe(1);
-    });
-
-    it('renders chat bubbles with a chat bubble container', () => {
+    it('renders ChatBubbles with a chat bubble container', () => {
       // Given
       const currentUsername = 'Jitae Kim';
       const theOtherUsername = 'Originerd';
@@ -72,10 +57,7 @@ describe('ChatRoom', () => {
       // Then
       const chatBubbleContainer = wrapper.find('.chat-room__bubbles');
       expect(chatBubbleContainer.length).toBe(1);
-      expect(chatBubbleContainer.find('ChatBubble').at(0).prop('isMine')).toBe(true);
-      expect(chatBubbleContainer.find('ChatBubble').at(0).prop('message')).toBe(messages[0].message);
-      expect(chatBubbleContainer.find('ChatBubble').at(1).prop('isMine')).not.toBe(true);
-      expect(chatBubbleContainer.find('ChatBubble').at(1).prop('message')).toBe(messages[1].message);
+      expect(chatBubbleContainer.find('ChatBubbles').length).toBe(1);
     });
 
     it('sets message when input is changed', () => {

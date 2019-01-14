@@ -1,0 +1,5 @@
+.chat-list {
+  background-color: orange;
+  overflow: auto;
+  flex: 1;
+}

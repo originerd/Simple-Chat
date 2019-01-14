@@ -33,6 +33,7 @@ describe('SignIn', () => {
   });
 
   it('resets error when input is changed', () => {
+    // Given
     const wrapper = shallow(<SignIn signIn={() => undefined} />);
     wrapper.setState({ error: 'TestError' });
 
@@ -67,7 +68,7 @@ describe('SignIn', () => {
 
         // Then
         expect(global.fetch).not.toBeCalled();
-        expect(wrapper.find('.error').text()).toContain('emtpy');
+        expect(wrapper.find('SignInError').prop('error')).toContain('emtpy');
       });
     });
 
@@ -91,6 +92,7 @@ describe('SignIn', () => {
 
         // Then
         expect(signInMockFn).toBeCalledWith(username);
+        expect(wrapper.find('SignInError').prop('error')).toBeUndefined();
       });
     });
 
@@ -118,7 +120,7 @@ describe('SignIn', () => {
 
         // Then
         expect(signInMockFn).not.toBeCalled();
-        expect(wrapper.find('.error').text()).toBe(errorMessage);
+        expect(wrapper.find('SignInError').prop('error')).toBe(errorMessage);
       });
     });
   });

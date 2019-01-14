@@ -4,42 +4,37 @@ import React from 'react';
 import ChatButtons from './ChatButtons';
 
 describe('ChatButtons', () => {
-  describe('when there are no usernames to chat', () => {
-    it('renders empty message', () => {
-      // When
-      const wrapper = shallow(
-        <ChatButtons
-          chatRoomToUnreadMessageCount={{}}
-          resetUnreadMessageCount={() => undefined}
-          selectChatRoom={() => undefined}
-          usernames={[]}
-        />,
-      );
+  it('renders buttons with ChatButtonBadges', () => {
+    // Given
+    const chatRoomToUnreadMessageCount = {
+      Alan: 10,
+      Kevin: 4,
+      Jay: undefined,
+    };
+    const usernames = Object.keys(chatRoomToUnreadMessageCount);
+    const unreadMessageCounts = Object.keys(chatRoomToUnreadMessageCount)
+      .map((key) => chatRoomToUnreadMessageCount[key]);
 
-      // Then
-      expect(wrapper.text()).toContain('no users');
+    // When
+    const wrapper = shallow(
+      <ChatButtons
+        chatRoomToUnreadMessageCount={chatRoomToUnreadMessageCount}
+        resetUnreadMessageCount={() => undefined}
+        selectChatRoom={() => undefined}
+        usernames={usernames}
+      />,
+    );
+
+    // Then
+    wrapper.find('button').forEach((button, i) => {
+      expect(button.text()).toContain(usernames[i]);
+    });
+    wrapper.find('ChatButtonBadge').forEach((chatButtonBadge, i) => {
+      expect(chatButtonBadge.prop('unreadMessageCount')).toBe(unreadMessageCounts[i]);
     });
   });
 
-  describe('when there are usernames to chat', () => {
-    it('renders buttons', () => {
-      // When
-      const usernames = ['Alan', 'Kevin', 'Jay'];
-      const wrapper = shallow(
-        <ChatButtons
-          chatRoomToUnreadMessageCount={{}}
-          resetUnreadMessageCount={() => undefined}
-          selectChatRoom={() => undefined}
-          usernames={usernames}
-        />,
-      );
-
-      // Then
-      expect(wrapper.find('button').length).toBe(usernames.length);
-    });
-  });
-
-  describe('when clicking a button', () => {
+  describe('clicking a button', () => {
     it('calls resetUnreadMessageCount function and selectChatRoom function of props', () => {
       // Given
       const resetUnreadMessageCountMockFn = jest.fn();
@@ -60,30 +55,6 @@ describe('ChatButtons', () => {
       // Then
       expect(resetUnreadMessageCountMockFn).toBeCalledWith(usernames[0]);
       expect(selectChatRoomMockFn).toBeCalledWith(usernames[0]);
-    });
-  });
-
-  describe('when there are unread messages', () => {
-    it('renders a badge', () => {
-      // Given
-      const usernames = ['Originerd'];
-      const unreadMessageCount = 10;
-      const chatRoomToUnreadMessageCount = {
-        [usernames[0]]: unreadMessageCount,
-      };
-
-      // When
-      const wrapper = shallow(
-        <ChatButtons
-          chatRoomToUnreadMessageCount={chatRoomToUnreadMessageCount}
-          resetUnreadMessageCount={() => undefined}
-          selectChatRoom={() => undefined}
-          usernames={usernames}
-        />,
-      );
-
-      // Then
-      expect(wrapper.find('button').find('.badge').text()).toBe(String(unreadMessageCount));
     });
   });
 });

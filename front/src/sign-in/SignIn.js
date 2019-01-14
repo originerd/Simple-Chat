@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import './SignIn.css';
+import SignInError from './SignInError';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -57,16 +58,6 @@ class SignIn extends React.Component {
     });
   }
 
-  renderError() {
-    const { error } = this.state;
-
-    if (!error) {
-      return null;
-    }
-
-    return <p className="error">{error}</p>;
-  }
-
   render() {
     return (
       <div className="sign-in-container">
@@ -79,7 +70,7 @@ class SignIn extends React.Component {
           <button className="sign-in__button" onClick={this.signIn}>
             Connect
           </button>
-          {this.renderError()}
+          <SignInError error={this.state.error} />
         </div>
       </div>
     );

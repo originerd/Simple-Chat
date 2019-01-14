@@ -3,6 +3,7 @@ import React from 'react';
 
 import ChatBubble from './ChatBubble';
 import './ChatRoom.css';
+import ChatBubbles from './ChatBubbles';
 
 class ChatRoom extends React.Component {
   constructor(props) {
@@ -66,7 +67,7 @@ class ChatRoom extends React.Component {
   }
 
   render() {
-    const { to } = this.props;
+    const { messages, to, username } = this.props;
 
     if (!to) {
       return (
@@ -79,7 +80,7 @@ class ChatRoom extends React.Component {
     return (
       <div className="chat-room">
         <div className="chat-room__bubbles" ref={this.setBubbles}>
-          {this.renderChatBubbles()}
+          <ChatBubbles messages={messages} username={username} />
         </div>
         <div className="chat-room__inputs">
           <label className="chat-room__image-input">

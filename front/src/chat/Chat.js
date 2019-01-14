@@ -3,7 +3,7 @@ import React from 'react';
 import io from 'socket.io-client';
 
 import './Chat.css';
-import ChatButtons from './ChatButtons';
+import ChatList from './ChatList';
 import ChatRoom from './ChatRoom';
 
 class Chat extends React.Component {
@@ -98,7 +98,7 @@ class Chat extends React.Component {
 
     return (
       <div className="chat">
-        <ChatButtons
+        <ChatList
           chatRoomToUnreadMessageCount={chatRoomToUnreadMessageCount}
           resetUnreadMessageCount={this.resetUnreadMessageCount}
           selectChatRoom={this.selectChatRoom}

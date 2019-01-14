@@ -2,27 +2,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import './ChatBubble.css';
+import ChatBubbleMessage from './ChatBubbleMessage';
 
 class ChatBubble extends React.Component {
-  renderMessage() {
-    const { message, type } = this.props;
-
-    switch (type) {
-      case 'image':
-        return <img alt="A message" src={message} />;
-      default:
-        return <p>{message}</p>;
-    }
-  }
-
   render() {
-    const { isMine } = this.props;
+    const { isMine, message, type } = this.props;
 
     const classNames = ['chat-bubble', isMine ? 'right' : 'left'];
 
     return (
       <div className={classNames.join(' ')}>
-        {this.renderMessage()}
+        <ChatBubbleMessage message={message} type={type} />
       </div>
     );
   }
