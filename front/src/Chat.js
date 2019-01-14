@@ -10,7 +10,7 @@ class Chat extends React.Component {
     super(props);
 
     this.state = {
-      messages: [],
+      chatRoomToMessages: {},
       selectedChatRoom: undefined,
       usernames: [],
     };
@@ -31,13 +31,13 @@ class Chat extends React.Component {
 
   render() {
     const { username } = this.props;
-    const { messages, selectedChatRoom, usernames } = this.state;
+    const { chatRoomToMessages, selectedChatRoom, usernames } = this.state;
 
     return (
       <div>
         <ChatButtons usernames={usernames.filter((name) => name !== username)} />
         <ChatRoom
-          messages={messages}
+          messages={chatRoomToMessages[selectedChatRoom] || []}
           to={selectedChatRoom}
           username={username}
         />

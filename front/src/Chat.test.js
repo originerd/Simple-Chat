@@ -23,12 +23,14 @@ describe('Chat', () => {
     const wrapper = shallow(<Chat username={username} />);
 
     // When
-    const messages = [];
     const to = 'Alan';
-    wrapper.setState({ messages, selectedChatRoom: to });
+    const chatRoomToMessages = {
+      [to]: [{ from: username, message: 'Hey!', to }],
+    };
+    wrapper.setState({ chatRoomToMessages, selectedChatRoom: to });
 
     // Then
-    expect(wrapper.find('ChatRoom').prop('messages')).toEqual(messages);
+    expect(wrapper.find('ChatRoom').prop('messages')).toEqual(chatRoomToMessages[to]);
     expect(wrapper.find('ChatRoom').prop('to')).toBe(to);
     expect(wrapper.find('ChatRoom').prop('username')).toBe(username);
   });
