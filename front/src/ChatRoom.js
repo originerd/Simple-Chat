@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class ChatRoom extends React.Component {
@@ -10,5 +11,10 @@ class ChatRoom extends React.Component {
     );
   }
 }
+
+ChatRoom.propTypes = {
+  to: PropTypes.string,
+  username: PropTypes.string.isRequired,
+};
 
 export default ChatRoom;

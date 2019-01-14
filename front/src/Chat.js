@@ -26,10 +26,12 @@ class Chat extends React.Component {
   }
 
   render() {
+    const { username } = this.props;
+
     return (
       <div>
-        <ChatButtons usernames={this.state.usernames.filter((username) => username !== this.props.username)} />
-        <ChatRoom />
+        <ChatButtons usernames={this.state.usernames.filter((name) => name !== username)} />
+        <ChatRoom username={username} />
       </div>
     );
   }
