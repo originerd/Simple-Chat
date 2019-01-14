@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import io from 'socket.io-client';
 
+import './Chat.css';
 import ChatButtons from './ChatButtons';
 import ChatRoom from './ChatRoom';
 
@@ -74,9 +75,10 @@ class Chat extends React.Component {
     const { chatRoomToMessages, selectedChatRoom, usernames } = this.state;
 
     return (
-      <div>
+      <div className="chat">
         <ChatButtons
           selectChatRoom={this.selectChatRoom}
+          selectedChatRoom={selectedChatRoom}
           usernames={usernames.filter((name) => name !== username)}
         />
         <ChatRoom

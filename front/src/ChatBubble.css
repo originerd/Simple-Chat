@@ -1,0 +1,44 @@
+.chat-bubble {
+  border-radius: 5px;
+  margin: 2px 0;
+  padding: 5px;
+  position: relative;
+}
+
+.chat-bubble > p {
+  word-break: break-all;
+  margin: 0;
+}
+
+.left {
+  align-self: flex-start;
+  background-color: gold;
+  color: white;
+  margin-right: 25%;
+}
+
+.left::before {
+  border-bottom: 4px solid transparent;
+  border-right: 4px solid gold;
+  border-top: 4px solid transparent;
+  content: '';
+  left: -4px;
+  position: absolute;
+  top: .6em;
+}
+
+.right {
+  align-self: flex-end;
+  background-color: #E8E8E8;
+  margin-left: 25%;
+}
+
+.right::before {
+  border-bottom: 4px solid transparent;
+  border-left: 4px solid #E8E8E8;
+  border-top: 4px solid transparent;
+  content: '';
+  right: -4px;
+  position: absolute;
+  top: .6em;
+}

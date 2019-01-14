@@ -1,0 +1,33 @@
+.sign-in-container {
+  align-items: center;
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.sign-in {
+  background-color: darkorange;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.sign-in__button {
+  border: none;
+  border-radius: 0;
+  height: 30px;
+  margin: 10px 0;
+}
+
+.sign-in__input {
+  border: none;
+  height: 30px;
+  padding: 5px;
+}
+
+.error {
+  color: white;
+  margin: 0;
+}

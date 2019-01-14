@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import './SignIn.css';
+
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
@@ -67,12 +69,18 @@ class SignIn extends React.Component {
 
   render() {
     return (
-      <div>
-        <input onChange={this.setUsername} />
-        <button onClick={this.signIn}>
-          Connect
-        </button>
-        {this.renderError()}
+      <div className="sign-in-container">
+        <div className="sign-in">
+          <input
+            className="sign-in__input"
+            onChange={this.setUsername}
+            placeholder="Username"
+          />
+          <button className="sign-in__button" onClick={this.signIn}>
+            Connect
+          </button>
+          {this.renderError()}
+        </div>
       </div>
     );
   }

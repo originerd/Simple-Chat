@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import './ChatButtons.css';
+
 class ChatButtons extends React.Component {
   constructor(props) {
     super(props);
@@ -12,15 +14,19 @@ class ChatButtons extends React.Component {
   }
 
   render() {
-    const { usernames } = this.props;
+    const { selectedChatRoom, usernames } = this.props;
 
     if (usernames.length === 0) {
-      return <p>There are no users to chat.</p>;
+      return (
+        <div className="chat-buttons">
+          <p>There are no users to chat.</p>
+        </div>
+      );
     }
 
     return (
-      <div>
-        {usernames.map((username) => <button key={username} onClick={this.selectChatRoom(username)}>{username}</button>)}
+      <div className="chat-buttons">
+        {usernames.map((username) => <button className={`chat-buttons__button${username === selectedChatRoom ? ' active' : ''}`} key={username} onClick={this.selectChatRoom(username)}>{username}</button>)}
       </div>
     );
   }
@@ -28,6 +34,7 @@ class ChatButtons extends React.Component {
 
 ChatButtons.propTypes = {
   selectChatRoom: PropTypes.func.isRequired,
+  selectedChatRoom: PropTypes.string,
 };
 
 export default ChatButtons;

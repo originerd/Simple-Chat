@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import './ChatBubble.css';
+
 class ChatBubble extends React.Component {
   render() {
     const { isMine, message } = this.props;
 
+    const classNames = ['chat-bubble', isMine ? 'right' : 'left'];
+
     return (
-      <div className={isMine ? 'right' : 'left'}>
+      <div className={classNames.join(' ')}>
         <p>{message}</p>
       </div>
     );

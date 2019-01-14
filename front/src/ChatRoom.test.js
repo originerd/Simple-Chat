@@ -32,7 +32,7 @@ describe('ChatRoom', () => {
       );
 
       // Then
-      expect(wrapper.find('.chat-bubble-container').length).toBe(1);
+      expect(wrapper.find('.chat-room__bubbles').length).toBe(1);
     });
 
     it('renders chat bubbles with a chat bubble container', () => {
@@ -55,7 +55,7 @@ describe('ChatRoom', () => {
       );
 
       // Then
-      const chatBubbleContainer = wrapper.find('.chat-bubble-container');
+      const chatBubbleContainer = wrapper.find('.chat-room__bubbles');
       expect(chatBubbleContainer.length).toBe(1);
       expect(chatBubbleContainer.find('ChatBubble').at(0).prop('isMine')).toBe(true);
       expect(chatBubbleContainer.find('ChatBubble').at(0).prop('message')).toBe(messages[0].message);
