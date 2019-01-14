@@ -59,8 +59,14 @@ class ChatRoom extends React.Component {
     this.setState({ message: event.target.value });
   }
 
+  renderChatBubbles() {
+    const { messages, username } = this.props;
+
+    return messages.map(({ from, message, type }, index) => <ChatBubble isMine={username === from} key={index} message={message} type={type} />)
+  }
+
   render() {
-    const { messages, to, username } = this.props;
+    const { to } = this.props;
 
     if (!to) {
       return (
@@ -73,7 +79,7 @@ class ChatRoom extends React.Component {
     return (
       <div className="chat-room">
         <div className="chat-room__bubbles" ref={this.setBubbles}>
-          {messages.map(({ from, message, type }, index) => <ChatBubble isMine={username === from} key={index} message={message} type={type} />)}
+          {this.renderChatBubbles()}
         </div>
         <div className="chat-room__inputs">
           <label className="chat-room__image-input">
