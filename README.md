@@ -21,9 +21,6 @@
 ## Screenshots
 
 1. Sign in
-
-![A screenshot of Sign in](./screenshots/sign-in.png)
-
+    ![A screenshot of Sign in](./screenshots/sign-in.png)
 1. Chat
-
-![A screenshot of Chat](./screenshots/chat.png)
+    ![A screenshot of Chat](./screenshots/chat.png)
