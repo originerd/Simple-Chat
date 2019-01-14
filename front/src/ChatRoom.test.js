@@ -32,6 +32,33 @@ describe('ChatRoom', () => {
       // Then
       expect(wrapper.find('.chat-bubble-container').length).toBe(1);
     });
+
+    it('renders chat bubbles with a chat bubble container', () => {
+      // Given
+      const currentUsername = 'Jitae Kim';
+      const theOtherUsername = 'Originerd';
+      const messages = [
+        { from: currentUsername, message: 'Hey!' },
+        { from: theOtherUsername, message: 'Yo!' },
+      ];
+
+      // When
+      const wrapper = shallow(
+        <ChatRoom
+          messages={messages}
+          to={theOtherUsername}
+          username={currentUsername}
+        />,
+      );
+
+      // Then
+      const chatBubbleContainer = wrapper.find('.chat-bubble-container');
+      expect(chatBubbleContainer.length).toBe(1);
+      expect(chatBubbleContainer.find('ChatBubble').at(0).prop('isMine')).toBe(true);
+      expect(chatBubbleContainer.find('ChatBubble').at(0).prop('message')).toBe(messages[0].message);
+      expect(chatBubbleContainer.find('ChatBubble').at(1).prop('isMine')).not.toBe(true);
+      expect(chatBubbleContainer.find('ChatBubble').at(1).prop('message')).toBe(messages[1].message);
+    });
   });
 
   describe('when selected chat room exists', () => {
