@@ -4,14 +4,25 @@ import React from 'react';
 import './ChatBubble.css';
 
 class ChatBubble extends React.Component {
+  renderMessage() {
+    const { message, type } = this.props;
+
+    switch (type) {
+      case 'image':
+        return <img src={message} />;
+      default:
+        return <p>{message}</p>;
+    }
+  }
+
   render() {
-    const { isMine, message } = this.props;
+    const { isMine } = this.props;
 
     const classNames = ['chat-bubble', isMine ? 'right' : 'left'];
 
     return (
       <div className={classNames.join(' ')}>
-        <p>{message}</p>
+        {this.renderMessage()}
       </div>
     );
   }
@@ -20,6 +31,7 @@ class ChatBubble extends React.Component {
 ChatBubble.propTypes = {
   isMine: PropTypes.bool,
   message: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default ChatBubble;

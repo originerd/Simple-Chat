@@ -29,8 +29,8 @@ io.on('connection', (socket) => {
     io.emit('usernames', Array.from(usernames));
   });
 
-  socket.on('message', ({ from, message, to }) => {
-    io.emit(to, { from, message });
+  socket.on('message', ({ from, message, to, type }) => {
+    io.emit(to, { from, message, type });
   });
 });
 

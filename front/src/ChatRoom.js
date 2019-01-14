@@ -12,6 +12,7 @@ class ChatRoom extends React.Component {
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.sendImage = this.sendImage.bind(this);
     this.setBubbles = this.setBubbles.bind(this);
     this.setMessage = this.setMessage.bind(this);
   }
@@ -28,6 +29,20 @@ class ChatRoom extends React.Component {
     }
 
     this.sendMessage();
+  }
+
+  sendImage(event) {
+    const { files } = event.target;
+
+    if (!files || !files[0]) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onload = () => {
+      this.props.sendMessage(reader.result, "image");
+    };
   }
 
   sendMessage() {
@@ -58,12 +73,12 @@ class ChatRoom extends React.Component {
     return (
       <div className="chat-room">
         <div className="chat-room__bubbles" ref={this.setBubbles}>
-          {messages.map(({ from, message }, index) => <ChatBubble isMine={username === from} key={index} message={message} />)}
+          {messages.map(({ from, message, type }, index) => <ChatBubble isMine={username === from} key={index} message={message} type={type} />)}
         </div>
         <div className="chat-room__inputs">
           <label className="chat-room__image-input">
             Image
-            <input accept="image/*" type="file" />
+            <input accept="image/*" onChange={this.sendImage} type="file" />
           </label>
           <input
             className="chat-room__text-input"

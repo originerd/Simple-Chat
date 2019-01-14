@@ -39,7 +39,7 @@ class ChatButtons extends React.Component {
               onClick={this.selectChatRoom(username)}
             >
               {username}
-              {chatRoomToUnreadMessageCount[username] && <span className="badge">{chatRoomToUnreadMessageCount[username]}</span>}
+              {chatRoomToUnreadMessageCount[username] && <span className="badge">{chatRoomToUnreadMessageCount[username]}</span> || null}
             </button>)
           )
         }

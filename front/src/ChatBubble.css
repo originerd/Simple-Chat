@@ -5,6 +5,10 @@
   position: relative;
 }
 
+.chat-bubble > img {
+  width: 100%;
+}
+
 .chat-bubble > p {
   word-break: break-all;
   margin: 0;

@@ -55,8 +55,8 @@ describe('ChatRoom', () => {
       const currentUsername = 'Jitae Kim';
       const theOtherUsername = 'Originerd';
       const messages = [
-        { from: currentUsername, message: 'Hey!' },
-        { from: theOtherUsername, message: 'Yo!' },
+        { from: currentUsername, message: 'Hey!', type: "text" },
+        { from: theOtherUsername, message: 'Yo!', type: "text" },
       ];
 
       // When
@@ -91,7 +91,7 @@ describe('ChatRoom', () => {
 
       // When
       const message = 'TestMessage';
-      wrapper.find('input').simulate('change', { target: { value: message } });
+      wrapper.find('.chat-room__text-input').simulate('change', { target: { value: message } });
 
       // Then
       expect(wrapper.state('message')).toBe(message);
@@ -111,8 +111,8 @@ describe('ChatRoom', () => {
 
       // When
       const message = 'TestMessage';
-      wrapper.find('input').simulate('change', { target: { value: message } });
-      wrapper.find('input').simulate('keypress', { key: 'Enter' });
+      wrapper.find('.chat-room__text-input').simulate('change', { target: { value: message } });
+      wrapper.find('.chat-room__text-input').simulate('keypress', { key: 'Enter' });
 
       // Then
       expect(sendMessageMockFn).toBeCalledWith(message);

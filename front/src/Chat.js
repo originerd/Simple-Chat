@@ -74,7 +74,7 @@ class Chat extends React.Component {
     this.setState({ selectedChatRoom: username });
   }
 
-  sendMessage(message) {
+  sendMessage(message, type = "text") {
     const { username } = this.props;
     const { selectedChatRoom } = this.state;
 
@@ -82,7 +82,7 @@ class Chat extends React.Component {
       return;
     }
 
-    const newMessage = { from: username, message, to: selectedChatRoom };
+    const newMessage = { from: username, message, to: selectedChatRoom, type };
 
     this.socket.send(newMessage);
     this.appendMessage(newMessage);
