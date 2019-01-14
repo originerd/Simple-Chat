@@ -15,6 +15,7 @@ class Chat extends React.Component {
       usernames: [],
     };
 
+    this.selectChatRoom = this.selectChatRoom.bind(this);
     this.setUsernames = this.setUsernames.bind(this);
   }
 
@@ -23,6 +24,10 @@ class Chat extends React.Component {
 
     this.socket.on('usernames', this.setUsernames);
     this.socket.emit('join', this.props.username);
+  }
+
+  selectChatRoom(username) {
+    this.setState({ selectedChatRoom: username });
   }
 
   setUsernames(usernames) {
@@ -35,7 +40,10 @@ class Chat extends React.Component {
 
     return (
       <div>
-        <ChatButtons usernames={usernames.filter((name) => name !== username)} />
+        <ChatButtons
+          selectChatRoom={this.selectChatRoom}
+          usernames={usernames.filter((name) => name !== username)}
+        />
         <ChatRoom
           messages={chatRoomToMessages[selectedChatRoom] || []}
           to={selectedChatRoom}
