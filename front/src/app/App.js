@@ -1,8 +1,8 @@
 import React from 'react';
 
 import './App.css';
-import Chat from './Chat';
-import SignIn from './SignIn';
+import Chat from '../chat/Chat';
+import SignIn from '../sign-in/SignIn';
 
 class App extends React.Component {
   constructor(props) {

@@ -9,7 +9,7 @@ class ChatBubble extends React.Component {
 
     switch (type) {
       case 'image':
-        return <img src={message} />;
+        return <img alt="A message" src={message} />;
       default:
         return <p>{message}</p>;
     }

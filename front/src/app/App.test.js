@@ -2,8 +2,8 @@ import { shallow } from 'enzyme';
 import React from 'react';
 
 import App from './App';
-import SignIn from './SignIn';
-import Chat from './Chat';
+import SignIn from '../sign-in/SignIn';
+import Chat from '../chat/Chat';
 
 describe('App', () => {
   describe('when username is not set', () => {
