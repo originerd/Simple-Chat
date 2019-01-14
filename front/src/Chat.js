@@ -78,7 +78,7 @@ class Chat extends React.Component {
     const { username } = this.props;
     const { selectedChatRoom } = this.state;
 
-    if (!selectedChatRoom) {
+    if (!selectedChatRoom || !message) {
       return;
     }
 
