@@ -16,6 +16,7 @@ class Chat extends React.Component {
     };
 
     this.selectChatRoom = this.selectChatRoom.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
     this.setUsernames = this.setUsernames.bind(this);
   }
 
@@ -28,6 +29,26 @@ class Chat extends React.Component {
 
   selectChatRoom(username) {
     this.setState({ selectedChatRoom: username });
+  }
+
+  sendMessage(message) {
+    const { username } = this.props;
+    const { selectedChatRoom } = this.state;
+
+    if (!selectedChatRoom) {
+      return;
+    }
+
+    const newMessage = { from: username, message };
+
+    this.socket.emit(selectedChatRoom, newMessage);
+    this.setState((prevState) => ({
+      ...prevState,
+      chatRoomToMessages: {
+        ...prevState.chatRoomToMessages,
+        [selectedChatRoom]: (prevState.chatRoomToMessages[selectedChatRoom] || []).concat(newMessage),
+      },
+    }));
   }
 
   setUsernames(usernames) {
@@ -46,6 +67,7 @@ class Chat extends React.Component {
         />
         <ChatRoom
           messages={chatRoomToMessages[selectedChatRoom] || []}
+          sendMessage={this.sendMessage}
           to={selectedChatRoom}
           username={username}
         />

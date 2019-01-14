@@ -10,6 +10,7 @@ describe('ChatRoom', () => {
       const wrapper = shallow(
         <ChatRoom
           messages={[]}
+          sendMessage={() => undefined}
           to="Originerd"
           username="Jitae Kim"
         />,
@@ -24,6 +25,7 @@ describe('ChatRoom', () => {
       const wrapper = shallow(
         <ChatRoom
           messages={[]}
+          sendMessage={() => undefined}
           to="Originerd"
           username="Jitae Kim"
         />,
@@ -46,6 +48,7 @@ describe('ChatRoom', () => {
       const wrapper = shallow(
         <ChatRoom
           messages={messages}
+          sendMessage={() => undefined}
           to={theOtherUsername}
           username={currentUsername}
         />,
@@ -65,6 +68,7 @@ describe('ChatRoom', () => {
       const wrapper = shallow(
         <ChatRoom
           messages={[]}
+          sendMessage={() => undefined}
           to="Originerd"
           username="Jitae Kim"
         />,
@@ -77,12 +81,33 @@ describe('ChatRoom', () => {
       // Then
       expect(wrapper.state('message')).toBe(message);
     });
+
+    it('sends message when pressing enter key', () => {
+      // Given
+      const sendMessageMockFn = jest.fn();
+      const wrapper = shallow(
+        <ChatRoom
+          messages={[]}
+          sendMessage={sendMessageMockFn}
+          to="Originerd"
+          username="Jitae Kim"
+        />,
+      );
+
+      // When
+      const message = 'TestMessage';
+      wrapper.find('input').simulate('change', { target: { value: message } });
+      wrapper.find('input').simulate('keypress', { key: 'Enter' });
+
+      // Then
+      expect(sendMessageMockFn).toBeCalledWith(message);
+    });
   });
 
   describe('when selected chat room exists', () => {
     it('renders empty message', () => {
       // When
-      const wrapper = shallow(<ChatRoom username="Jitae Kim" />);
+      const wrapper = shallow(<ChatRoom sendMessage={() => undefined} username="Jitae Kim" />);
 
       // Then
       expect(wrapper.text()).toContain('select a user to chat');

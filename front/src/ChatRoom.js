@@ -9,7 +9,21 @@ class ChatRoom extends React.Component {
 
     this.state = { message: '' };
 
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
     this.setMessage = this.setMessage.bind(this);
+  }
+
+  handleKeyPress(event) {
+    if (!(event.key === 'Enter')) {
+      return;
+    }
+
+    this.sendMessage();
+  }
+
+  sendMessage() {
+    this.props.sendMessage(this.state.message);
   }
 
   setMessage(event) {
@@ -28,7 +42,11 @@ class ChatRoom extends React.Component {
         <div className="chat-bubble-container">
           {messages.map(({ from, message }, index) => <ChatBubble isMine={username === from} key={index} message={message} />)}
         </div>
-        <input onChange={this.setMessage} value={this.state.message} />
+        <input
+          onChange={this.setMessage}
+          onKeyPress={this.handleKeyPress}
+          value={this.state.message}
+        />
       </div>
     );
   }
@@ -36,6 +54,7 @@ class ChatRoom extends React.Component {
 
 ChatRoom.propTypes = {
   messages: PropTypes.array,
+  sendMessage: PropTypes.func.isRequired,
   to: PropTypes.string,
   username: PropTypes.string.isRequired,
 };
