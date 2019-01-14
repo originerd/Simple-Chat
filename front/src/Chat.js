@@ -9,7 +9,11 @@ class Chat extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { usernames: [] };
+    this.state = {
+      messages: [],
+      selectedChatRoom: undefined,
+      usernames: [],
+    };
 
     this.setUsernames = this.setUsernames.bind(this);
   }
@@ -27,11 +31,16 @@ class Chat extends React.Component {
 
   render() {
     const { username } = this.props;
+    const { messages, selectedChatRoom, usernames } = this.state;
 
     return (
       <div>
-        <ChatButtons usernames={this.state.usernames.filter((name) => name !== username)} />
-        <ChatRoom username={username} />
+        <ChatButtons usernames={usernames.filter((name) => name !== username)} />
+        <ChatRoom
+          messages={messages}
+          to={selectedChatRoom}
+          username={username}
+        />
       </div>
     );
   }

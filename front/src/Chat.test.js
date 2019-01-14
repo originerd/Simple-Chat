@@ -17,11 +17,19 @@ describe('Chat', () => {
     expect(wrapper.find('ChatButtons').prop('usernames')).toEqual(otherUsernames);
   });
 
-  it('renders ChatRoom', () => {
+  it('renders ChatRoom with selected chat room and to props', () => {
+    // Given
+    const username = 'Jitae Kim'
+    const wrapper = shallow(<Chat username={username} />);
+
     // When
-    const wrapper = shallow(<Chat username="Jitae Kim" />);
+    const messages = [];
+    const to = 'Alan';
+    wrapper.setState({ messages, selectedChatRoom: to });
 
     // Then
-    expect(wrapper.find('ChatRoom').length).toBe(1);
+    expect(wrapper.find('ChatRoom').prop('messages')).toEqual(messages);
+    expect(wrapper.find('ChatRoom').prop('to')).toBe(to);
+    expect(wrapper.find('ChatRoom').prop('username')).toBe(username);
   });
 });
