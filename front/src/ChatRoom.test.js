@@ -5,6 +5,21 @@ import ChatRoom from './ChatRoom';
 
 describe('ChatRoom', () => {
   describe('when selected chat room exists', () => {
+    it('renders an image upload button', () => {
+      // When
+      const wrapper = shallow(
+        <ChatRoom
+          messages={[]}
+          sendMessage={() => undefined}
+          to="Originerd"
+          username="Jitae Kim"
+        />,
+      );
+
+      // Then
+      expect(wrapper.find('.chat-room__image-input').length).toBe(1);
+    });
+
     it('renders an input', () => {
       // When
       const wrapper = shallow(
@@ -17,7 +32,7 @@ describe('ChatRoom', () => {
       );
 
       // Then
-      expect(wrapper.find('input').length).toBe(1);
+      expect(wrapper.find('.chat-room__text-input').length).toBe(1);
     });
 
     it('renders a chat bubble container', () => {

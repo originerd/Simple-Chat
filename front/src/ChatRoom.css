@@ -13,7 +13,26 @@
   padding: 10px;
 }
 
-.chat-room__input {
+.chat-room__inputs {
+  display: flex;
+}
+
+.chat-room__image-input {
+  align-items: center;
+  background-color: indigo;
+  color: white;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  width: 60px;
+}
+
+.chat-room__image-input > input {
+  display: none;
+}
+
+.chat-room__text-input {
   border: none;
+  flex: 1;
   height: 30px;
 }

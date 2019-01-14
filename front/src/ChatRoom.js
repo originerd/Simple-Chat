@@ -60,12 +60,18 @@ class ChatRoom extends React.Component {
         <div className="chat-room__bubbles" ref={this.setBubbles}>
           {messages.map(({ from, message }, index) => <ChatBubble isMine={username === from} key={index} message={message} />)}
         </div>
-        <input
-          className="chat-room__input"
-          onChange={this.setMessage}
-          onKeyPress={this.handleKeyPress}
-          value={this.state.message}
-        />
+        <div className="chat-room__inputs">
+          <label className="chat-room__image-input">
+            Image
+            <input accept="image/*" type="file" />
+          </label>
+          <input
+            className="chat-room__text-input"
+            onChange={this.setMessage}
+            onKeyPress={this.handleKeyPress}
+            value={this.state.message}
+          />
+        </div>
       </div>
     );
   }
